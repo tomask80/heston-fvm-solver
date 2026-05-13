@@ -12,10 +12,9 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(Eigen)
 
-# Pridanie hlavičkových súborov z tvojej include zložky
 include_directories(include)
 
-
-add_executable(HestonSolver src/main.cpp src/heston.cpp)
+file(GLOB SOURCES "src/*.cpp")
+add_executable(HestonSolver ${SOURCES})
 
 target_link_libraries(HestonSolver PRIVATE Eigen3::Eigen)
