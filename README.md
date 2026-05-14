@@ -14,42 +14,15 @@ $$
 
 This solver reformulates the equation into a generalized advection-diffusion-reaction equation and discretizes it over a spatial grid using FVM.
 
-$$
-\frac{\partial u}{\partial \tau}
-+
-\mathbf{A}\cdot\nabla u
-=
-\nabla\cdot(\mathbf{B}\nabla u)
--ru
-$$
+$$\frac{\partial u}{\partial \tau}+\mathbf{A}\cdot\nabla u=\nabla\cdot(\mathbf{B}\nabla u)-ru$$
 
 where
 
-$$
-\mathbf{B}
-=
-\frac12 y
-\left[
-\begin{array}{cc}
-1 & \rho\sigma \\
-\rho\sigma & \sigma^2
-\end{array}
-\right]
-$$
-
+$$\mathbf{B}=\frac12 y\left[\begin{array}{cc}1 & \rho\sigma \\\rho\sigma & \sigma^2\end{array}\right]$$
 and
 
-$$
-\mathbf{A}
-=
--
-\left[
-\begin{array}{c}
-r-\frac12 y-\frac12\rho\sigma \\
-\kappa(\theta-y)-\lambda y-\frac12\sigma^2
-\end{array}
-\right].
-$$
+$$\mathbf{A}=-\left[\begin{array}{c}r-\frac12 y-\frac12\rho\sigma \\
+\kappa(\theta-y)-\lambda y-\frac12\sigma^2\end{array}\right]$$
 
 ## Features & Technologies
 
