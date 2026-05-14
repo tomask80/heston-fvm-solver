@@ -15,38 +15,59 @@ $$
 This solver reformulates the equation into a generalized advection-diffusion-reaction equation and discretizes it over a spatial grid using FVM.
 
 $$
-\frac{\partial u}{\partial \tau} + \vec{A} \cdot \nabla u = \nabla \cdot (B \nabla u) - ru,
+\frac{\partial u}{\partial \tau}
++
+\mathbf{A}\cdot\nabla u
+=
+\nabla\cdot(\mathbf{B}\nabla u)
+-ru
 $$
 
 where
 
 $$
-B = \frac{1}{2}y \begin{pmatrix} 1 & \rho\sigma \\ \rho\sigma & \sigma^2 \end{pmatrix}
+\mathbf{B}
+=
+\frac12 y
+\left[
+\begin{array}{cc}
+1 & \rho\sigma \\
+\rho\sigma & \sigma^2
+\end{array}
+\right]
 $$
 
 and
 
 $$
-\vec{A} = - \begin{pmatrix} r - \frac{1}{2}y - \frac{1}{2}\rho\sigma \\ \kappa(\theta - y) - \lambda y - \frac{1}{2}\sigma^2 \end{pmatrix}
+\mathbf{A}
+=
+-
+\left[
+\begin{array}{c}
+r-\frac12 y-\frac12\rho\sigma \\
+\kappa(\theta-y)-\lambda y-\frac12\sigma^2
+\end{array}
+\right].
 $$
 
 ## Features & Technologies
 
-* **Core Implementation:** Written in C++
+* **Core Implementation:** Written in C++ 17
 * **Linear Algebra:** Powered by the [Eigen](https://eigen.tuxfamily.org/) library for fast matrix operations.
 * **Build System:** Cross-platform compilation using CMake.
 * **Data Export:** Automated output to CSV for visualization and Experimental Order of Convergence (EOC) analysis.
 
 ## Results and Validation
 
-The numerical solution aligns with the analytical exact solution. Below is the graphical comparison between the exact solution (solid surface) and the numerical FVM solution (temperature map surface):
+The numerical solution aligns with the analytical exact solution. Below is the graphical comparison between the exact solution (orange surface) and the numerical FVM solution (temperature map surface):
 
 <div align="center">
   <img src="docs/exact_vs_solver.png" alt="Exact vs Numerical Solution" width="700"/>
 </div>
 
 ### Error Analysis
-The solver computes the $L_2$ norm to evaluate the Experimental Order of Convergence (EOC). The results confirm the expected accuracy of the scheme as the grid is refined:
+The solver computes the $L_2$ norm to evaluate the Experimental Order of Convergence (EOC). The results confirm the expected second order EOC:
 
 <div align="center">
   <img src="docs/convergence_table.png" alt="Convergence Table" width="400"/>
@@ -55,7 +76,7 @@ The solver computes the $L_2$ norm to evaluate the Experimental Order of Converg
 ##  Ongoing Research: M-Matrix Stabilization
 
 * **M-Matrix Stabilization:** As noted in the foundational paper, the standard diamond-cell approximation of the diffusion tensor (specifically dealing with the cross-derivative term $\rho \sigma v S$) does not unconditionally guarantee the M-matrix property of the system matrix. This can occasionally lead to unphysical negative values in the variance domain. I am currently researching robust stabilization techniques by enforcing the discrete principle via M-matrix structural corrections.
-* **Parallel Computing:** Implementation of multi-core acceleration using **OpenMP** to significantly reduce computation time and latency for high-resolution grids.
+* **Parallel Computing:** Implementation of multi-core acceleration using **OpenMP** to reduce computation time and latency for high-resolution grids.
 
 ## How to Build and Run
 
